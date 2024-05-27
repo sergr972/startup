@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="300 seconds">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProfile name="!prod">
+        <property name="CONSOLE_LOG_PATTERN" value="%d{HH:mm:ss.SSS} [%8.8thread] %highlight(%-5.5level)| %class{60}.%M:%L %msg%n"/>
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        <root>
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>logs/startup.log</file>
+            <encoder>
+                <pattern>%d{MM-dd HH:mm:ss.SSS} [%8.8thread] %-5.5level| %class{60}.%M:%L %msg%n</pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>logs/startup.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+        <root>
+            <appender-ref ref="FILE"/>
+        </root>
+    </springProfile>
+</configuration>

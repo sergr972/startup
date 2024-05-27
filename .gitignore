@@ -3,5 +3,6 @@ out
 doc
 target
 *.iml
-log
+logs
+db
 *.patch

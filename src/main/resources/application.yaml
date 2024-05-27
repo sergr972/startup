@@ -20,20 +20,6 @@ spring:
         default_batch_fetch_size: 20
         # https://stackoverflow.com/questions/21257819/what-is-the-difference-between-hibernate-jdbc-fetch-size-and-hibernate-jdbc-batc
         jdbc.batch_size: 20
-  datasource:
-    # ImMemory
-    url: jdbc:h2:mem:startup
-    #    tcp: jdbc:h2:tcp://localhost:9092/mem:startup
-    # Absolute path
-    #    url: jdbc:h2:d:/projects/startup/db/startup
-    #    tcp: jdbc:h2:tcp://localhost:9092/d:/projects/startup/db/startup
-    # Relative path form current dir
-    #    url: jdbc:h2:./db/startup
-    # Relative path from home
-    #    url: jdbc:h2:~/startup
-    #    tcp: jdbc:h2:tcp://localhost:9092/~/startup
-    username: sa
-    password:
 
 # Jackson Serialization Issue Resolver
   jackson.visibility:
