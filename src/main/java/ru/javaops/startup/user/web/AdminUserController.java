@@ -21,7 +21,7 @@ import static ru.javaops.startup.common.validation.ValidationUtil.checkNew;
 @RequestMapping(value = AdminUserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminUserController extends AbstractUserController {
 
-    static final String REST_URL = SecurityConfig.API_PATH + "/admin/users";
+    public static final String REST_URL = SecurityConfig.API_PATH + "/admin/users";
 
     @Override
     @GetMapping("/{id}")

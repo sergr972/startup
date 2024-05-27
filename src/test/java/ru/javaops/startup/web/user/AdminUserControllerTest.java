@@ -1,4 +1,4 @@
-package ru.javaops.startup.user.web;
+package ru.javaops.startup.web.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,10 +6,10 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.javaops.startup.AbstractControllerTest;
 import ru.javaops.startup.user.model.Role;
 import ru.javaops.startup.user.model.User;
 import ru.javaops.startup.user.repository.UserRepository;
+import ru.javaops.startup.web.AbstractControllerTest;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javaops.startup.common.util.JsonUtil.writeValue;
-import static ru.javaops.startup.user.UserTestData.*;
+import static ru.javaops.startup.UserTestData.*;
 import static ru.javaops.startup.user.web.AdminUserController.REST_URL;
 import static ru.javaops.startup.user.web.UniqueMailValidator.EXCEPTION_DUPLICATE_EMAIL;
 

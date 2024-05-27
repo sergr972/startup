@@ -1,6 +1,5 @@
-package ru.javaops.startup.user;
+package ru.javaops.startup;
 
-import ru.javaops.startup.MatcherFactory;
 import ru.javaops.startup.user.model.Role;
 import ru.javaops.startup.user.model.User;
 
