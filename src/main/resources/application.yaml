@@ -1,5 +1,11 @@
 #  https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 spring:
+  security:
+#    https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.security.spring.security.user.name
+    user:
+      name: admin
+      password: admin
+      roles: ADMIN
   jpa:
     show-sql: true
     open-in-view: false
@@ -53,4 +59,4 @@ server.servlet:
     enabled: true # Enable http encoding support
     force: true
 
-springdoc.swagger-ui.path: /
+springdoc.swagger-ui.path: /api/admin

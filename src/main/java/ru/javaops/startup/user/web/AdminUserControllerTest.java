@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.javaops.startup.common.util.JsonUtil.writeValue;
 import static ru.javaops.startup.user.UserTestData.*;
 import static ru.javaops.startup.user.web.AdminUserController.REST_URL;
 import static ru.javaops.startup.user.web.UniqueMailValidator.EXCEPTION_DUPLICATE_EMAIL;
@@ -28,7 +29,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     private UserRepository repository;
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL_SLASH + ADMIN_ID))
                 .andExpect(status().isOk())
@@ -39,7 +40,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void getNotFound() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL_SLASH + NOT_FOUND))
                 .andDo(print())
@@ -47,7 +48,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void getByEmail() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL_SLASH + "by-email?email=" + admin.getEmail()))
                 .andExpect(status().isOk())
@@ -56,7 +57,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(REST_URL_SLASH + USER_ID))
                 .andDo(print())
@@ -65,7 +66,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void deleteNotFound() throws Exception {
         perform(MockMvcRequestBuilders.delete(REST_URL_SLASH + NOT_FOUND))
                 .andDo(print())
@@ -73,7 +74,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void enableNotFound() throws Exception {
         perform(MockMvcRequestBuilders.patch(REST_URL_SLASH + NOT_FOUND)
                 .param("enabled", "false")
@@ -90,20 +91,13 @@ class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = USER_MAIL)
-    void getForbidden() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void update() throws Exception {
         User updated = getUpdated();
         updated.setId(null);
         perform(MockMvcRequestBuilders.put(REST_URL_SLASH + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonWithPassword(updated, "newPass")))
+                .content(writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
@@ -111,12 +105,12 @@ class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void createWithLocation() throws Exception {
         User newUser = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonWithPassword(newUser, "newPass")))
+                .content(writeValue(newUser)))
                 .andExpect(status().isCreated());
 
         User created = USER_MATCHER.readFromJson(action);
@@ -127,7 +121,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void getAll() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
@@ -136,7 +130,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void enable() throws Exception {
         perform(MockMvcRequestBuilders.patch(REST_URL_SLASH + USER_ID)
                 .param("enabled", "false")
@@ -148,60 +142,60 @@ class AdminUserControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void createInvalid() throws Exception {
-        User invalid = new User(null, null, "", "newPass", Role.USER, Role.ADMIN);
+        User invalid = new User(null, null, "", "NewLastName", Role.USER, Role.ADMIN);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonWithPassword(invalid, "newPass")))
+                .content(writeValue(invalid)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void updateInvalid() throws Exception {
         User invalid = new User(user);
         invalid.setName("");
         perform(MockMvcRequestBuilders.put(REST_URL_SLASH + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonWithPassword(invalid, "password")))
+                .content(writeValue(invalid)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void updateHtmlUnsafe() throws Exception {
         User updated = new User(user);
         updated.setName("<script>alert(123)</script>");
         perform(MockMvcRequestBuilders.put(REST_URL_SLASH + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonWithPassword(updated, "password")))
+                .content(writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void updateDuplicate() throws Exception {
         User updated = new User(user);
         updated.setEmail(ADMIN_MAIL);
         perform(MockMvcRequestBuilders.put(REST_URL_SLASH + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonWithPassword(updated, "password")))
+                .content(writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(content().string(containsString(EXCEPTION_DUPLICATE_EMAIL)));
     }
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = "admin")
     void createDuplicate() throws Exception {
-        User expected = new User(null, "New", USER_MAIL, "newPass", Role.USER, Role.ADMIN);
+        User expected = new User(null, "New", USER_MAIL, "NewLastName", Role.USER, Role.ADMIN);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonWithPassword(expected, "newPass")))
+                .content(writeValue(expected)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(content().string(containsString(EXCEPTION_DUPLICATE_EMAIL)));

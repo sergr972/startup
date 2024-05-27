@@ -6,7 +6,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import ru.javaops.startup.app.AuthUtil;
 import ru.javaops.startup.common.HasIdAndEmail;
 import ru.javaops.startup.user.repository.UserRepository;
 
@@ -38,7 +37,7 @@ public class UniqueMailValidator implements org.springframework.validation.Valid
                             // Workaround for update with user.id=null in request body
                             // ValidationUtil.assureIdConsistent called after this validation
                             String requestURI = request.getRequestURI();
-                            if (requestURI.endsWith("/" + dbId) || (dbId == AuthUtil.get().id() && requestURI.contains("/profile")))
+                            if (requestURI.endsWith("/" + dbId))
                                 return;
                         }
                         errors.rejectValue("email", "", EXCEPTION_DUPLICATE_EMAIL);

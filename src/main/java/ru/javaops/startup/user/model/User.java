@@ -10,7 +10,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.lang.NonNull;
 import ru.javaops.startup.common.HasIdAndEmail;
 import ru.javaops.startup.common.model.NamedEntity;
 import ru.javaops.startup.common.validation.NoHtml;
@@ -32,12 +31,10 @@ public class User extends NamedEntity implements HasIdAndEmail {
     @NoHtml   // https://stackoverflow.com/questions/17480809
     private String email;
 
-    @Column(name = "password", nullable = false)
-    @NotBlank
-    @Size(max = 128)
-    // https://stackoverflow.com/a/12505165/548473
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
+    @Column(name = "last_name", nullable = true)
+    @Size(max = 32)
+    @NoHtml
+    private String lastName;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
@@ -56,17 +53,17 @@ public class User extends NamedEntity implements HasIdAndEmail {
     private Set<Role> roles = EnumSet.noneOf(Role.class);
 
     public User(User u) {
-        this(u.id, u.name, u.email, u.password, u.enabled, u.registered, u.roles);
+        this(u.id, u.name, u.email, u.lastName, u.enabled, u.registered, u.roles);
     }
 
-    public User(Integer id, String name, String email, String password, Role... roles) {
-        this(id, name, email, password, true, new Date(), Arrays.asList(roles));
+    public User(Integer id, String name, String email, String lastName, Role... roles) {
+        this(id, name, email, lastName, true, new Date(), Arrays.asList(roles));
     }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, @NonNull Collection<Role> roles) {
+    public User(Integer id, String name, String email, String lastName, boolean enabled, Date registered, Collection<Role> roles) {
         super(id, name);
         this.email = email;
-        this.password = password;
+        this.lastName = lastName;
         this.enabled = enabled;
         this.registered = registered;
         setRoles(roles);

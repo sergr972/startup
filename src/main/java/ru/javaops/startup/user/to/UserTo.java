@@ -19,13 +19,14 @@ public class UserTo extends NamedTo implements HasIdAndEmail {
     String email;
 
     @NotBlank
-    @Size(min = 5, max = 32)
-    String password;
+    @Size(max = 32)
+    @NoHtml
+    String lastName;
 
-    public UserTo(Integer id, String name, String email, String password) {
+    public UserTo(Integer id, String name, String email, String lastName) {
         super(id, name);
         this.email = email;
-        this.password = password;
+        this.lastName = lastName;
     }
 
     @Override

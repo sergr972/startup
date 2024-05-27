@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.javaops.startup.app.config.SecurityConfig;
 import ru.javaops.startup.user.model.User;
 
 import java.net.URI;
@@ -20,7 +21,7 @@ import static ru.javaops.startup.common.validation.ValidationUtil.checkNew;
 @RequestMapping(value = AdminUserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminUserController extends AbstractUserController {
 
-    static final String REST_URL = "/api/admin/users";
+    static final String REST_URL = SecurityConfig.API_PATH + "/admin/users";
 
     @Override
     @GetMapping("/{id}")
@@ -45,7 +46,7 @@ public class AdminUserController extends AbstractUserController {
     public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
         log.info("create {}", user);
         checkNew(user);
-        User created = repository.prepareAndSave(user);
+        User created = repository.save(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -57,7 +58,7 @@ public class AdminUserController extends AbstractUserController {
     public void update(@Valid @RequestBody User user, @PathVariable int id) {
         log.info("update {} with id={}", user, id);
         assureIdConsistent(user, id);
-        repository.prepareAndSave(user);
+        repository.save(user);
     }
 
     @GetMapping("/by-email")
