@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.3</version>
+        <version>3.3.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ru.javaops</groupId>
@@ -17,8 +17,8 @@
 
     <properties>
         <java.version>21</java.version>
-        <springdoc.version>2.3.0</springdoc.version>
-        <jsoup.version>1.17.2</jsoup.version>
+        <springdoc.version>2.6.0</springdoc.version>
+        <jsoup.version>1.18.1</jsoup.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -54,6 +54,12 @@
             <version>${springdoc.version}</version>
         </dependency>
 
+        <!--Thymeleaf-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
         <!--cache-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -81,7 +87,7 @@
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>annotations</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.1u2</version>
             <scope>compile</scope>
         </dependency>
 
