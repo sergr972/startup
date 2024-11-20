@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<th:block th:fragment="page" th:with="img=${img}?: '/static/img/title/startup.png', descr=${descr}?: ${title}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="title" th:content="${title}"/>
+        <meta name="description" th:content="${descr}"/>
+        <title>[[${title}]]</title>
+        <link rel="shortcut icon" href="/static/img/logo.png"/>
+        <link rel="apple-touch-icon" href="/static/img/logo.png">
+        <link rel="image_src" href="/static/img/title/startup.png"/>
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css"/>
+        <!--        https://fontawesome.com/download        -->
+        <link rel="stylesheet" href="/static/fontawesome/css/all.min.css"/>
+        <link rel="stylesheet" href="/static/css/main.css?v=2"/>
+        <meta name="keywords" content="Курс Startup: готовый веб-проект для разработки и ведения бизнеса">
+    </head>
+    <body class="d-flex flex-column">
+    <!--    https://getbootstrap.com/docs/5.3/examples/headers/    -->
+    <nav class="pt-1 border-bottom">
+        <div class="container d-flex flex-wrap">
+            <ul class="nav me-auto">
+                <li class="nav-item me-2 pt-1">
+                    <a href="/"><img src="/static/img/logo.png"></a>
+                </li>
+                <li class="nav-item"><a href="https://javaops-demo.ru/basejava" class="nav-link link-warning">BaseJava Demo</a></li>
+                <li class="nav-item"><a href="https://javaops-demo.ru/topjava" class="ps-0 nav-link link-warning">TopJava Demo</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <th:block th:insert="${appMain}"/>
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py-2">
+        <div class="container">
+            <div>Приложение по курсу Startup: <a href="https://javaops.ru/view/startup" target="_blank" class="c4">готовый веб-проект для разработки и ведения
+                бизнеса: Ubuntu, Nginx, HTTPS</a></div>
+            <div class="row">
+                <div class="col-6 my-2">
+                    <span>Контакты</span>:
+                    <a href="https://t.me/gkislin" class="m-1">
+                        <i class="fa-brands fa-telegram fa-lg"></i>
+                    </a>
+                    <a href="https://wa.me/79218550482" class="m-1">
+                        <i class="fa-brands fa-whatsapp fa-lg"></i>
+                    </a>
+                    <a href="skype:grigory.kislin?chat" class="m-1">
+                        <i class="fa-brands fa-skype fa-lg"></i>
+                    </a>
+                    <a href="https://vk.com/grigory.kislin" class="m-1">
+                        <i class="fa-brands fa-vk fa-lg"></i>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCMiuo1BSwQxRMl6781evABw/videos" class="m-1">
+                        <i class="fa-brands fa-youtube fa-lg"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/gkislin" class="m-1">
+                        <i class="fa-brands fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/gkislin" class="m-1">
+                        <i class="fa-brands fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="https://stackoverflow.com/users/548473" class="m-1">
+                        <i class="fa-brands fa-stack-overflow fa-lg"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/gkislin" class="m-1">
+                        <i class="fa-brands fa-hab fa-lg"></i>
+                    </a>
+                </div>
+                <div class="col-6 my-2 text-end">
+                    <!--  https://yandex.ru/dev/share  -->
+                    <style>
+                        /* https://lospirata.ru/blog/webdev/blok-podelitsya-ot-yandeks-nestandartnaya-nastrojka/ */
+                        .ya-share2__list::before {
+                            content: 'Поделиться \203A ';
+                            position: relative;
+                            top: 5px;
+                            font-size: 16px;
+                            margin-right: 6px;
+                            color: var(--c4);
+                        }
+                    </style>
+                    <script src="https://yastatic.net/share2/share.js"></script>
+                    <div class="ya-share2" data-curtain data-shape="round" data-color-scheme="whiteblack"
+                         data-services="vkontakte,telegram,whatsapp,skype,linkedin"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </body>
+</th:block>
+</html>

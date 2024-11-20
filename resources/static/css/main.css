@@ -99,6 +99,11 @@ footer a:hover {
     --bs-btn-active-border-color: var(--c4);
 }
 
+/* card */
+.card {
+    --bs-card-border-color: var(--c4-50);
+}
+
 .fit {
     height: auto;
     max-width: 100%;

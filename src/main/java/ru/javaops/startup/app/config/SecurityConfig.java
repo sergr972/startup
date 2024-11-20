@@ -24,7 +24,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authz -> authz
                         .requestMatchers(API_PATH + "/admin/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").hasRole(Role.ADMIN.name())
                         .anyRequest().permitAll())
-                .formLogin(withDefaults())
+                .formLogin(flc -> flc.loginPage("/view/login"))
                 .httpBasic(withDefaults())
                 .logout(lc -> lc.logoutSuccessUrl("/"))
                 .csrf(AbstractHttpConfigurer::disable);
