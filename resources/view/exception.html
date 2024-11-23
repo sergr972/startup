@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<th:block th:replace="~{layout/main::page(title='Ошибка приложения',appMain=~{::main})}">
+    <main>
+        <!--/*@thymesVar id="status" type="org.springframework.http.HttpStatus"*/-->
+        <div class="text-center">
+            <br>
+            <h3 class="my-4" th:text="${status.reasonPhrase}"/>
+            <h1 class="my-4 c3" th:text="${title}"/>
+            <h4 th:utext="${msg}"></h4>
+        </div>
+    </main>
+</th:block>
+</html>

@@ -39,7 +39,10 @@ logging:
   level:
     root: WARN
     ru.javaops: DEBUG
+    ru.javaops.startup.app.config.MvcConfig: WARN
     org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
+    org.apache.catalina: OFF
+    org.thymeleaf.TemplateEngine: OFF
 
 server.servlet:
   encoding:
