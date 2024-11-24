@@ -26,7 +26,7 @@ public class SecurityConfig {
                         .anyRequest().permitAll())
                 .formLogin(flc -> flc.loginPage("/view/login"))
                 .httpBasic(withDefaults())
-                .logout(lc -> lc.logoutSuccessUrl("/"))
+                .logout(lc -> lc.logoutUrl("/view/logout").logoutSuccessUrl("/"))
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }

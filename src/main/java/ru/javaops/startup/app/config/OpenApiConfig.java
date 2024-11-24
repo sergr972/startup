@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
                 description = """
                         <b><a href='https://javaops.ru/view/startup'>Startup course</a></b> application<br>
                         <p><b>
-                           <a href='/'>Home</a> | <a href='/logout'>Logout</a>
+                           <a href='/'>Home</a> | <a href='/view/logout'>Logout</a>
                         </b></p>
                         """,
                 contact = @Contact(url = "https://javaops.ru/#contacts", name = "Grigory Kislin", email = "admin@javaops.ru")
